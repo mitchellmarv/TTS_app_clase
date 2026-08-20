@@ -12,7 +12,7 @@ image = Image.open('gato_raton.png')
 st.image(image, width=350) 
 
 with st.sidebar: 
-    st.subheader("Escribe y/o selecciona texto para ser escuchado.") 
+    st.subheader("Selecciona el idioma del audio.") 
  
 try: 
     os.mkdir("temp") 
@@ -21,7 +21,8 @@ except:
  
 st.subheader("Un fragmento.") 
 
-st.write(
+# Texto que será convertido directamente a audio
+text = (
     'Mira, / Mayo de 1985 Ahora volvían, y aunque todo había salido más o menos como lo había previsto, '
     'algo que no había previsto había regresado: ese miedo loco, ese fastidio… esa sensación de Otro. '
     'Odiaba el miedo, lo hubiera atacado y devorado si hubiera podido… pero el miedo bailaba burlonamente '
@@ -32,8 +33,8 @@ st.write(
     'Más tarde, justo antes del amanecer, enviaría a un enfermero con una mala adicción a las pastillas '
     'para acabar con el bibliotecario de una vez por todas.'
 )
-            
-text = st.text_area("Ingrese el texto a escuchar.") 
+
+st.write(text)
  
 tld = 'com' 
  
@@ -53,25 +54,22 @@ def text_to_speech(text, tld, lg):
      
     tts = gTTS(text, lang=lg) 
 
-    try: 
-        my_file_name = text[0:20] 
-    except: 
-        my_file_name = "audio" 
+    my_file_name = "audio"
 
     tts.save(f"temp/{my_file_name}.mp3") 
 
-    return my_file_name, text 
+    return my_file_name
  
  
-if st.button("convertir a Audio"): 
+if st.button("🎧 Escuchar texto"): 
 
-     result, output_text = text_to_speech(text, 'com', lg)
+     result = text_to_speech(text, 'com', lg)
 
      audio_file = open(f"temp/{result}.mp3", "rb") 
 
      audio_bytes = audio_file.read() 
 
-     st.markdown(f"## Tu audio:") 
+     st.markdown("## 🔊 Tu audio:") 
 
      st.audio(
          audio_bytes, 
