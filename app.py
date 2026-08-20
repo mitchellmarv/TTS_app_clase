@@ -19,7 +19,7 @@ try:
 except: 
     pass 
  
-st.subheader("Un fragmento.") 
+st.subheader("Un fragmento de IT(ESO) 1990.") 
 
 # Texto que será convertido directamente a audio
 text = (
