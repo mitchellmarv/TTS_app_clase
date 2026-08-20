@@ -2,7 +2,6 @@ import streamlit as st
 import os 
 import time 
 import glob 
-import os 
 from gtts import gTTS 
 from PIL import Image 
 import base64 
@@ -13,8 +12,7 @@ image = Image.open('gato_raton.png')
 st.image(image, width=350) 
 
 with st.sidebar: 
-    st.subheader("Esrcibe y/o selecciona texto para ser escuchado.") 
- 
+    st.subheader("Escribe y/o selecciona texto para ser escuchado.") 
  
 try: 
     os.mkdir("temp") 
@@ -35,22 +33,20 @@ st.write(
     'para acabar con el bibliotecario de una vez por todas.'
 )
             
-st.markdown(f"Quieres escucharlo?, copia el texto") 
-
-text = st.text_area("Ingrese El texto a escuchar.") 
+text = st.text_area("Ingrese el texto a escuchar.") 
  
-tld='com' 
-
+tld = 'com' 
+ 
 option_lang = st.selectbox( 
     "Selecciona el lenguaje", 
     ("Español", "English")
 ) 
 
-if option_lang=="Español": 
-    lg='es' 
+if option_lang == "Español": 
+    lg = 'es' 
 
-if option_lang=="English": 
-    lg='en' 
+if option_lang == "English": 
+    lg = 'en' 
  
  
 def text_to_speech(text, tld, lg): 
@@ -67,8 +63,6 @@ def text_to_speech(text, tld, lg):
     return my_file_name, text 
  
  
-#display_output_text = st.checkbox("Verifica el texto") 
- 
 if st.button("convertir a Audio"): 
 
      result, output_text = text_to_speech(text, 'com', lg)
@@ -77,29 +71,13 @@ if st.button("convertir a Audio"):
 
      audio_bytes = audio_file.read() 
 
-     st.markdown(f"## Tú audio:") 
+     st.markdown(f"## Tu audio:") 
 
      st.audio(
          audio_bytes, 
          format="audio/mp3", 
          start_time=0
      ) 
- 
-     #if display_output_text: 
-      
-     #st.write(f" {output_text}") 
-     
- 
-#if st.button("ElevenLAabs",key=2): 
-#     from elevenlabs import play 
-#     from elevenlabs.client import ElevenLabs 
-#     client = ElevenLabs(api_key="a71bb432d643bbf80986c0cf0970d91a", # Defaults to ELEVEN_API_KEY) 
-#     audio = client.generate(
-#         text=f" {output_text}",
-#         voice="Rachel",
-#         model="eleven_multilingual_v1"
-#     ) 
-#     audio_file = open(f"temp/{audio}.mp3", "rb") 
  
      with open(f"temp/{result}.mp3", "rb") as f: 
          data = f.read() 
