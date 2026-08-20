@@ -8,23 +8,32 @@ from PIL import Image
 import base64 
  
 st.title("Conversión de Texto a Audio") 
+
 image = Image.open('gato_raton.png') 
 st.image(image, width=350) 
 
 with st.sidebar: 
     st.subheader("Esrcibe y/o selecciona texto para ser escuchado.") 
  
+ 
 try: 
     os.mkdir("temp") 
 except: 
     pass 
  
-st.subheader("Una pequeña Fábula.") 
+st.subheader("Un fragmento.") 
 
-st.write('Mira, / Mayo de 1985 Ahora volvían, y aunque todo había salido más o menos como lo había previsto, algo que no había previsto había regresado: ese miedo loco, ese fastidio… esa sensación de Otro. Odiaba el miedo, lo hubiera atacado y devorado si hubiera podido… pero el miedo bailaba burlonamente fuera de su alcance, y solo podía matar el miedo matándolos a ellos.
-
-    Seguro que no había necesidad de tanto miedo; ahora eran mayores, y su número se había reducido de siete a cinco. Cinco era un número poderoso, pero no tenía la cualidad mística y talismánica del siete. Es cierto que su lacayo no había podido matar al bibliotecario, pero el bibliotecario moriría en el hospital. Más tarde, justo antes del amanecer, enviaría a un enfermero con una mala adicción a las pastillas para acabar con el bibliotecario de una vez por todas.
-        ) 
+st.write(
+    'Mira, / Mayo de 1985 Ahora volvían, y aunque todo había salido más o menos como lo había previsto, '
+    'algo que no había previsto había regresado: ese miedo loco, ese fastidio… esa sensación de Otro. '
+    'Odiaba el miedo, lo hubiera atacado y devorado si hubiera podido… pero el miedo bailaba burlonamente '
+    'fuera de su alcance, y solo podía matar el miedo matándolos a ellos. '
+    'Seguro que no había necesidad de tanto miedo; ahora eran mayores, y su número se había reducido de siete a cinco. '
+    'Cinco era un número poderoso, pero no tenía la cualidad mística y talismánica del siete. '
+    'Es cierto que su lacayo no había podido matar al bibliotecario, pero el bibliotecario moriría en el hospital. '
+    'Más tarde, justo antes del amanecer, enviaría a un enfermero con una mala adicción a las pastillas '
+    'para acabar con el bibliotecario de una vez por todas.'
+)
             
 st.markdown(f"Quieres escucharlo?, copia el texto") 
 
@@ -37,15 +46,16 @@ option_lang = st.selectbox(
     ("Español", "English")
 ) 
 
-if option_lang=="Español" : 
+if option_lang=="Español": 
     lg='es' 
 
-if option_lang=="English" : 
+if option_lang=="English": 
     lg='en' 
  
-def text_to_speech(text, tld,lg): 
+ 
+def text_to_speech(text, tld, lg): 
      
-    tts = gTTS(text,lang=lg) 
+    tts = gTTS(text, lang=lg) 
 
     try: 
         my_file_name = text[0:20] 
@@ -56,11 +66,12 @@ def text_to_speech(text, tld,lg):
 
     return my_file_name, text 
  
+ 
 #display_output_text = st.checkbox("Verifica el texto") 
  
 if st.button("convertir a Audio"): 
 
-     result, output_text = text_to_speech(text, 'com',lg)
+     result, output_text = text_to_speech(text, 'com', lg)
 
      audio_file = open(f"temp/{result}.mp3", "rb") 
 
@@ -78,6 +89,7 @@ if st.button("convertir a Audio"):
       
      #st.write(f" {output_text}") 
      
+ 
 #if st.button("ElevenLAabs",key=2): 
 #     from elevenlabs import play 
 #     from elevenlabs.client import ElevenLabs 
@@ -110,6 +122,7 @@ if st.button("convertir a Audio"):
          unsafe_allow_html=True
      ) 
  
+ 
 def remove_files(n): 
 
     mp3_files = glob.glob("temp/*mp3") 
@@ -126,5 +139,6 @@ def remove_files(n):
                 os.remove(f) 
 
                 print("Deleted ", f) 
+ 
  
 remove_files(7)
