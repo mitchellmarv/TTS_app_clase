@@ -8,7 +8,7 @@ import base64
  
 st.title("Conversión de Texto a Audio") 
 
-image = Image.open('gato_raton.png') 
+image = Image.open('voice1.png') 
 st.image(image, width=350) 
 
 with st.sidebar: 
